@@ -1,8 +1,7 @@
-/* Grundlayout */
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ece9e6, #ffffff);
     color: #222;
     text-align: center;
     padding: 20px;
@@ -10,44 +9,74 @@ body {
 
 /* Überschrift */
 h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #444;
+    letter-spacing: 1px;
 }
 
 /* Container für Charakterkarten */
 .character-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
     justify-items: center;
 }
 
 /* Einzelne Karte */
 .card {
+    position: relative;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    width: 160px;
+    width: 180px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Hover Effekt */
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* Bild in der Karte */
 .card img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/* Name des Charakters */
+/* Bild Zoom beim Hover */
+.card:hover img {
+    transform: scale(1.1);
+}
+
+/* Overlay für Text */
 .card h2 {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    color: #fff;
     font-size: 1rem;
-    margin: 10px 0;
-    color: #333;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+/* Optional: sanfte Animation beim Laden */
+.card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
