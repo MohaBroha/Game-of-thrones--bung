@@ -1,17 +1,22 @@
-const characters = [
-    { firstName: "Jon", lastName: "Snow", imageUrl: "https://thronesapi.com/assets/images/jon-snow.jpg" },
-    { firstName: "Tyrion", lastName: "Lannister", imageUrl: "https://thronesapi.com/assets/images/tyrion-lannister.jpg" },
-    { firstName: "Jaime", lastName: "Lannister", imageUrl: "https://thronesapi.com/assets/images/jaime-lannister.jpg" },
-    { firstName: "Arya", lastName: "Stark", imageUrl: "https://thronesapi.com/assets/images/arya-stark.jpg" },
-
-];
 
 const listEl = document.getElementById('character-list');
 
+async function getData() {
 
+    const response = await fetch('https://thronesapi.com/api/v2/Characters');
+    const data = await response.json();
+    const characters = data.slice(0, 12).map(c => ({
+        firstName: c.firstName,
+        lastName: c.lastName,
+        imageUrl: c.imageUrl || 'https://via.placeholder.com/220x220?text=No+Image',
+    }));
+    return characters; // liefert die Charaktere zurück
+
+}
 function render(characters) {
     listEl.innerHTML = ''; // vorher leeren
-    characters.forEach(c => {
+    for (let i = 0; i < characters.length; i++) {
+        const c = characters[i];
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
@@ -19,11 +24,13 @@ function render(characters) {
             <h2>${c.firstName} ${c.lastName}</h2>
         `;
         listEl.appendChild(card);
-    });
+    }
 }
 
 
-function init() {
+async function init() {
+    const characters = await getData();
     render(characters);
 }
+
 document.addEventListener('DOMContentLoaded', init);
